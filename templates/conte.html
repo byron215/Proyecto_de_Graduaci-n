@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página con Encabezado</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow: hidden; /* Evitar scroll al mostrar los puntos */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Asegurar que el cuerpo ocupe toda la altura de la ventana */
+        }
+
+        /* Estilos del encabezado */
+        header {
+            padding: 20px 40px; /* Espaciado para el encabezado */
+            display: flex; /* Usar flexbox para alinear elementos */
+            align-items: center; /* Centrar verticalmente */
+            justify-content: space-between; /* Separar elementos entre extremos */
+            background-size: cover; /* Asegura que la imagen cubra todo el encabezado */
+        }
+
+        /* Estilo para el título Las 3 R */
+        .header-title {
+            font-size: 36px;
+            margin: 0;
+            text-shadow: 2px 2px 0 black; /* Contorno negro para el texto */
+        }
+
+        /* Colores de cada parte de la frase */
+        .las {
+            color: darkgreen; /* Verde oscuro */
+        }
+
+        .tres {
+            color: yellow; /* Amarillo */
+        }
+
+        .r {
+            color: blue; /* Azul */
+        }
+
+        /* Estilo para el logo */
+        .logo {
+            height: 85px; /* Ajustar el tamaño del logo */
+            margin-left: 10px; /* Reducir el margen para acercar el logo al título */
+        }
+
+        /* Estilos del menú */
+        nav {
+            flex-grow: 1; /* Permite que el menú ocupe el espacio restante */
+            display: flex; /* Cambiado a flex para centrar mejor el contenido */
+            justify-content: center; /* Centra el contenido del menú */
+            margin-left: -100px; /* Ajuste para mover los botones más a la izquierda */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex; /* Mantener flex para alinear los elementos */
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        /* Efecto Grow Box para los botones */
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #3e8e41;
+            border-radius: 30px;
+            border: 2px solid black; /* Contorno negro para los botones */
+            transition: transform 0.3s ease, background-color 0.3s ease; /* Transición para el crecimiento */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto hover */
+        nav ul li a:hover {
+            background-color: #ffeb3b;
+            color: black;
+            transform: scale(1.1); /* Aumentar el tamaño del botón */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Estilo del botón "Cerrar Sesión" */
+        .menu-sandwich {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .menu-sandwich span {
+            background-color: white;
+            height: 3px;
+            width: 100%;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Menú desplegable */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 35px; /* Ajustado para acercar al botón */
+            right: 0;
+            background-color: #3e8e41;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1; /* Asegura que el menú aparezca sobre otros elementos */
+        }
+
+        .dropdown a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px;
+            display: block;
+            text-shadow: 1px 1px 0 black; /* Contorno negro para el texto del menú */
+        }
+
+        .dropdown a:hover {
+            background-color: #ffeb3b;
+            color: black;
+        }
+
+        /* Estilos de las secciones */
+        section {
+            padding: 40px;
+            text-align: center;
+            flex-grow: 1; /* Permitir que la sección ocupe el espacio restante */
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        /* Estilos de las imágenes */
+        .mi-imagen {
+            width: 33%;
+            margin-left: 0;
+            display: block;
+        }
+
+        .otra-imagen {
+            width: 15%;
+            margin-top: -500px;
+            margin-left: 645px;
+        }
+
+        .otras-imagen {
+            width: 19%;
+            margin-top: -500px;
+            margin-left: 200px; /* Ajuste para centrar mejor la imagen de reutilizar */
+        }
+
+        /* Estilo para la descripción */
+        .descripcion {
+            color: white;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 105px;
+        }
+
+        .fondo-blanco {
+            background-color: white;
+            padding: 20px;
+        }
+
+        /* Animaciones */
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reduccion, .reutilizar, .reciclar {
+            opacity: 0;
+            animation: slideUp 1s ease-out forwards;
+        }
+
+        .reduccion {
+            animation-delay: 0.3s;
+            color: black;
+            font-size: 28px;
+            text-align: left;
+            margin-top: -160px;
+            margin-left: 200px;
+            text-shadow: 2px 2px 0 black; /* Contorno negro para el texto */
+        }
+
+        .reutilizar {
+            animation-delay: 0.6s;
+            color: black;
+            font-size: 28px;
+            text-align: center;
+            margin-top: -28px;
+            margin-left: 150px; /* Ajuste para centrar mejor */
+            text-shadow: 2px 2px 0 black; /* Contorno negro para el texto */
+        }
+
+        .reciclar {
+            animation-delay: 0.9s;
+            color: black;
+            font-size: 28px;
+            text-align: right;
+            margin-top: -30px;
+            margin-right: 150px;
+            text-shadow: 2px 2px 0 black; /* Contorno negro para el texto */
+        }
+
+        /* Estilos para los puntos */
+        .point {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 1;
+            animation: fadeOut 4s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Estilos del pie de página */
+        .footer {
+            background-color: #4CAF50; /* Mismo color que el encabezado */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative; /* Permitir el flujo normal del documento */
+            margin-top: auto; /* Mover el pie de página al final */
+        }
+
+        /* Animación de rebote para el pie de página */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .footer {
+            animation: bounce 2s infinite; /* Aplicar la animación de rebote */
+        }
+    </style>
+</head>
+<body>
+    <header style="background-image: url('{{ url_for('static', filename='fondo web.webp') }}');">
+        <h1 class="header-title">
+            <span class="las">Las</span>
+            <span class="tres"> 3</span>
+            <span class="r"> R</span>
+        </h1>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo"> <!-- Logo agregado aquí -->
+        <nav>
+            <ul>
+                <li><a href="/conte">Inicio</a></li>
+                <li><a href="/ana">Analizar</a></li>
+                <li><a href="/noso">Nosotros</a></li>
+            </ul>
+        </nav>
+
+        <!-- Botón de menú sandwich con opción de cerrar sesión -->
+        <div class="menu-sandwich" onclick="toggleDropdown()">
+            <span></span>
+            <span></span>
+            <span></span>
+            <div class="dropdown" id="dropdown">
+                <a href="/logout">Cerrar Sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="inicio" class="fondo-blanco">
+        <div class="imagenes-container">
+            <img src="{{ url_for('static', filename='reducir.webp') }}" alt="Descripción de la imagen" class="mi-imagen">
+            <img src="{{ url_for('static', filename='Reutilizar.jpg') }}" alt="Otra imagen" class="otra-imagen">
+            <img src="{{ url_for('static', filename='reciclar.webp') }}" alt="Otras imagen" class="otras-imagen">
+        </div>
+        <div class="descripcion">Explora la reciclabilidad de los materiales con la ayuda de la inteligencia artificial. Juntos, podemos promover la sostenibilidad y reducir el impacto ambiental.</div>
+        <div class="reduccion">Reducir</div>
+        <div class="reutilizar">Reutilizar</div>
+        <div class="reciclar">Reciclar</div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2024 Las 3 R. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Función para crear puntos de colores en la pantalla
+        function createColorPoints() {
+            const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink'];
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            for (let i = 0; i < 20; i++) {
+                const point = document.createElement('div');
+                const size = Math.random() * 20 + 10;
+                point.className = 'point';
+                point.style.width = size + 'px';
+                point.style.height = size + 'px';
+                point.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                point.style.top = Math.random() * screenHeight + 'px';
+                point.style.left = Math.random() * screenWidth + 'px';
+                document.body.appendChild(point);
+            }
+        }
+
+        // Función para alternar el menú desplegable
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            createColorPoints();
+        });
+    </script>
+</body>
+</html>

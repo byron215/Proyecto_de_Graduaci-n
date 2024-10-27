@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+
+    <!-- Incluir Bootstrap CSS desde el CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- Estilos personalizados -->
+    <style>
+        /* Estilo para el cuerpo */
+        body {
+            background-image: url("{{ url_for('static', filename='reci.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Alinea el contenido verticalmente */
+        }
+
+        /* Estilo para el encabezado */
+        .header {
+            background-color: #63A355; /* Verde claro, como el del logo */
+            color: white;
+            padding: 25px;
+            text-align: center;
+            width: 100%;
+            font-size: 50px;
+            font-weight: bold;
+            display: flex; /* Utiliza flexbox */
+            align-items: center; /* Alinea verticalmente el contenido */
+            justify-content: center; /* Centra el contenido horizontalmente */
+        }
+
+        /* Estilo para los colores personalizados */
+        .header .las {
+            color: darkgreen; /* Verde oscuro para "Las" */
+            margin-right: 10px; /* Espacio entre "Las" y "3" */
+        }
+        .header .num {
+            color: yellow; /* Amarillo para "3" */
+            margin-right: 10px; /* Espacio entre "3" y "R" */
+        }
+        .header .r {
+            color: blue; /* Azul para "R" */
+        }
+
+        /* Estilo para el logo */
+        .header img {
+            margin-left: 15px; /* Espacio entre la frase y el logo */
+            width: 73px; /* Tamaño del logo */
+            height: auto; /* Mantiene la proporción del logo */
+        }
+
+        /* Estilo para el contenedor del login */
+        .login-container {
+            max-width: 400px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0.97;
+            margin-top: 100px; /* Separación entre el encabezado y el formulario */
+        }
+
+        /* Estilo para el título del login */
+        .login-title {
+            margin-bottom: 30px;
+        }
+    </style>
+
+    <!-- Script para mostrar/ocultar la contraseña -->
+    <script>
+        function togglePassword() {
+            var passwordInput = document.querySelector('input[name="password"]');
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Encabezado centrado con fondo verde claro, colores en "Las 3 R" y logo a la par -->
+    <div class="header">
+        <span class="las">Las</span> 
+        <span class="num">3</span> 
+        <span class="r">R</span>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo de reciclaje">
+    </div>
+
+    <div class="login-container">
+        <h2 class="text-center login-title">Iniciar Sesión</h2>
+        <!-- Mostrar mensaje de error si existe -->
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        <!-- Formulario de inicio de sesión -->
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <input type="text" class="form-control" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" class="form-control" name="password" required>
+                <input type="checkbox" id="showPassword" onclick="togglePassword()"> Mostrar Contraseña<br><br>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <!-- Incluir jQuery y Bootstrap JS desde el CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/[email protected]/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
